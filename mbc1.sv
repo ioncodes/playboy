@@ -19,7 +19,7 @@ module mbc1(
   output logic data_dir,    // data direction
   output rgb_t status_led   // status LED
 );
-  (* ram_style = "block" *) logic [7:0] rom_data [0:524287];
+  logic [7:0] rom_data [0:524287];
   logic [4:0] bank_number = 1;
   logic [7:0] data_out;
   logic [7:0] data_in;
@@ -49,12 +49,12 @@ module mbc1(
   always_ff @(posedge clk) begin
     // Handle bank switching
     if (!wr && addr >= 16'h2000 && addr < 16'h4000) begin
-        // Bits 0-4 select bank (0 treated as 1)
-        if (data_in[4:0] == 5'd0)
-          bank_number <= 5'd1;
-        else
-          bank_number <= data_in[4:0];
-      end
+      // Bits 0-4 select bank (0 treated as 1)
+      if (data_in[4:0] == 5'd0)
+        bank_number <= 5'd1;
+      else
+        bank_number <= data_in[4:0];
+    end
 
     // Handle reset
     // if (!rst) begin
