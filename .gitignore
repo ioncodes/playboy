@@ -1,0 +1,7 @@
+*.jou
+*.log
+*.bit
+*.txt
+.Xil/
+roms/
+*.hex
